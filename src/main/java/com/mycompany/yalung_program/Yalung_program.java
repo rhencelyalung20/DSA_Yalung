@@ -19,8 +19,14 @@ public class Yalung_program {
         int x = input.nextInt();
         System.out.println("Enter a number: ");
         int y = input.nextInt();
-        int sum;
+        int sum, sub, multi, div;
         sum = x + y;
+        sub = x - y;
+        multi = y * x;
+        div = y / x;
         System.out.println("Sum is: " + sum);
+        System.out.println("Difference is: " + sub);
+        System.out.println("Product is: " + multi);
+        System.out.println("Quotient is: " + div);
     }
 }
