@@ -31,13 +31,14 @@ public class AdminLoginForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -47,33 +48,32 @@ public class AdminLoginForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Username:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 20));
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 220, 40));
 
+        txtUsername.setBackground(new java.awt.Color(204, 255, 255));
         txtUsername.addActionListener(this::txtUsernameActionPerformed);
         jPanel1.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 60, 220, 40));
 
-        btnBack.setText("BACK");
+        btnBack.setText("<-- BACK");
         btnBack.addActionListener(this::btnBackActionPerformed);
-        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 150, 50));
+        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 130, 30));
 
+        btnLogin.setBackground(new java.awt.Color(0, 102, 153));
         btnLogin.setText("LOGIN");
         btnLogin.addActionListener(this::btnLoginActionPerformed);
         jPanel1.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 150, 50));
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 220, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -82,25 +82,42 @@ public class AdminLoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
        String username = txtUsername.getText().trim();
-       String password = txtPassword.getText().trim();
+    String password = txtPassword.getText().trim();
 
-    // Validation
+    // 1. Validation for empty fields
     if (username.isEmpty() || password.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Please input tne Password!");
+        javax.swing.JOptionPane.showMessageDialog(this, "Please input both Username and Password!");
         return;
     }
 
-    // Hardcoded testing account para sa bahay
-    if (username.equals("admin") && password.equals("admin123")) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Login Successful!");
+    // 2. Connect to MS Access Database and verify credentials
+    try {
+        java.sql.Connection conn = DBConnection.connect();
         
-        // Buksan ang Main Dashboard
-        AdminDashboardForm dashboard = new AdminDashboardForm();
-        dashboard.setVisible(true);
-        this.dispose();
-    } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Maling Username o Password!");
-        txtPassword.setText("");
+        // Updated SQL query with your actual column names: user_name and user_password
+        String sql = "SELECT * FROM admin WHERE user_name = ? AND user_password = ?";
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        
+        pst.setString(1, username);
+        pst.setString(2, password);
+        
+        java.sql.ResultSet rs = pst.executeQuery();
+        
+        if (rs.next()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Login Successful!");
+            
+            // Open Admin Dashboard and close Login Form
+            AdminDashboardForm dashboard = new AdminDashboardForm();
+            dashboard.setVisible(true);
+            this.dispose();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Invalid Username or Password!");
+            txtPassword.setText("");
+        }
+        
+        conn.close();
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
     }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -145,7 +162,7 @@ public class AdminLoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

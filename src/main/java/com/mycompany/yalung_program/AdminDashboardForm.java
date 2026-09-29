@@ -33,10 +33,8 @@ public class AdminDashboardForm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtStudent = new javax.swing.JTextField();
         txtFirstname = new javax.swing.JTextField();
         txtLastname = new javax.swing.JTextField();
         btnLogout = new javax.swing.JButton();
@@ -45,7 +43,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         cmbCourse = new javax.swing.JComboBox<>();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStudents = new javax.swing.JTable();
 
@@ -58,45 +56,60 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         jLabel1.setText("Course:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 75, 27));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
-        jLabel2.setText("Student ID: ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 75, 27));
-
         jLabel3.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("First name:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 75, 27));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 75, 27));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Last name:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 75, 27));
-        jPanel1.add(txtStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 190, 40));
-        jPanel1.add(txtFirstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 190, 40));
-        jPanel1.add(txtLastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 190, 40));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 75, 27));
+
+        txtFirstname.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.add(txtFirstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 190, 40));
+
+        txtLastname.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.add(txtLastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 190, 40));
 
         btnLogout.setText("LOGOUT");
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
         jPanel1.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, 100, 40));
 
+        btnAdd.setBackground(new java.awt.Color(102, 153, 0));
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("ADD");
         btnAdd.addActionListener(this::btnAddActionPerformed);
         jPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 100, 40));
 
+        btnUpdate.setBackground(new java.awt.Color(0, 102, 204));
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setText("UPDATE");
         btnUpdate.addActionListener(this::btnUpdateActionPerformed);
         jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 100, 40));
 
+        btnDelete.setBackground(new java.awt.Color(102, 0, 51));
         btnDelete.setText("DELETE");
         btnDelete.addActionListener(this::btnDeleteActionPerformed);
         jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 100, 40));
 
+        btnClear.setBackground(new java.awt.Color(153, 153, 255));
         btnClear.setText("CLEAR");
         btnClear.addActionListener(this::btnClearActionPerformed);
         jPanel1.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 100, 40));
 
         cmbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HM", "BSOA", "ACT", " " }));
         cmbCourse.addActionListener(this::cmbCourseActionPerformed);
-        jPanel1.add(cmbCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
+        jPanel1.add(cmbCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("First name:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 75, 27));
+
+        tblStudents.setAutoCreateRowSorter(true);
+        tblStudents.setBackground(new java.awt.Color(255, 204, 204));
+        tblStudents.setForeground(new java.awt.Color(0, 0, 0));
         tblStudents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -115,9 +128,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblStudents);
 
-        jTabbedPane1.addTab("tab1", jScrollPane1);
-
-        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 370, 250));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 370, 260));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,41 +144,27 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblStudentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStudentsMouseClicked
-   javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblStudents.getModel();
-    int selectedRow = tblStudents.getSelectedRow();
-
-    if (selectedRow != -1) {
-        txtStudent.setText(model.getValueAt(selectedRow, 0).toString());
-        txtFirstname.setText(model.getValueAt(selectedRow, 1).toString());
-        txtLastname.setText(model.getValueAt(selectedRow, 2).toString());
-        cmbCourse.setSelectedItem(model.getValueAt(selectedRow, 3).toString());
-    }
-    }//GEN-LAST:event_tblStudentsMouseClicked
-
     private void cmbCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCourseActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCourseActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-      String id = txtStudent.getText().trim();
-    String firstName = txtFirstname.getText().trim();
+String firstName = txtFirstname.getText().trim();
     String lastName = txtLastname.getText().trim();
     String course = cmbCourse.getSelectedItem().toString();
 
-    if (id.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+    if (firstName.isEmpty() || lastName.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, "Please fill in all fields!", "Input Error", javax.swing.JOptionPane.WARNING_MESSAGE);
         return;
     }
 
     try {
         java.sql.Connection conn = DBConnection.connect();
-        String sql = "INSERT INTO Students (Student_ID, First_Name, Last_Name, Course) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Students (First_Name, Last_Name, Course) VALUES (?, ?, ?)";
         java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-        pst.setString(1, id);
-        pst.setString(2, firstName);
-        pst.setString(3, lastName);
-        pst.setString(4, course);
+        pst.setString(1, firstName);
+        pst.setString(2, lastName);
+        pst.setString(3, course);
 
         pst.executeUpdate();
         javax.swing.JOptionPane.showMessageDialog(this, "Student added successfully!", "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
@@ -177,16 +174,18 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         btnClearActionPerformed(evt);
     } catch (Exception e) {
         javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-    } // TODO add your handling code here:
+    }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-                                         
-    int selectedRow = tblStudents.getSelectedRow();
+   int selectedRow = tblStudents.getSelectedRow();
     if (selectedRow == -1) {
         javax.swing.JOptionPane.showMessageDialog(this, "Please select a student from the table to update!", "Selection Error", javax.swing.JOptionPane.WARNING_MESSAGE);
         return;
     }
+
+    // Kukunin ang Student_ID sa Column 0 ng napiling row sa table
+    String studentId = tblStudents.getValueAt(selectedRow, 0).toString();
 
     try {
         java.sql.Connection conn = DBConnection.connect();
@@ -195,26 +194,28 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         pst.setString(1, txtFirstname.getText().trim());
         pst.setString(2, txtLastname.getText().trim());
         pst.setString(3, cmbCourse.getSelectedItem().toString());
-        pst.setString(4, txtStudent.getText().trim());
+        pst.setString(4, studentId);
 
         pst.executeUpdate();
         javax.swing.JOptionPane.showMessageDialog(this, "Student record updated successfully!", "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
         conn.close();
-        loadTableData(); // Kusa nitong i-re-refresh ang JTable
-        btnClearActionPerformed(evt); // Lilinisin ang textfields matapos mag-update
+        loadTableData();
+        btnClearActionPerformed(evt);
     } catch (Exception e) {
         javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-   
-}
+    }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-       int selectedRow = tblStudents.getSelectedRow();
+     int selectedRow = tblStudents.getSelectedRow();
     if (selectedRow == -1) {
         javax.swing.JOptionPane.showMessageDialog(this, "Please select a student from the table to delete!", "Selection Error", javax.swing.JOptionPane.WARNING_MESSAGE);
         return;
     }
+
+    // Kukunin ang Student_ID sa Column 0 ng napiling row sa table
+    String studentId = tblStudents.getValueAt(selectedRow, 0).toString();
 
     int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this student record?", "Confirm Delete", javax.swing.JOptionPane.YES_NO_OPTION);
     if (confirm == javax.swing.JOptionPane.YES_OPTION) {
@@ -222,14 +223,14 @@ public class AdminDashboardForm extends javax.swing.JFrame {
             java.sql.Connection conn = DBConnection.connect();
             String sql = "DELETE FROM Students WHERE Student_ID=?";
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, txtStudent.getText().trim());
+            pst.setString(1, studentId);
 
             pst.executeUpdate();
             javax.swing.JOptionPane.showMessageDialog(this, "Student record deleted from database!", "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
             conn.close();
-            loadTableData(); // Kusa nitong i-re-refresh ang JTable
-            btnClearActionPerformed(evt); // Lilinisin ang textfields matapos mag-delete
+            loadTableData();
+            btnClearActionPerformed(evt);
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
@@ -237,7 +238,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-    txtStudent.setText("");
+
     txtFirstname.setText("");
     txtLastname.setText("");
     cmbCourse.setSelectedIndex(0);
@@ -249,6 +250,18 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     role.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void tblStudentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStudentsMouseClicked
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblStudents.getModel();
+        int selectedRow = tblStudents.getSelectedRow();
+
+        if (selectedRow != -1) {
+
+            txtFirstname.setText(model.getValueAt(selectedRow, 1).toString());
+            txtLastname.setText(model.getValueAt(selectedRow, 2).toString());
+            cmbCourse.setSelectedItem(model.getValueAt(selectedRow, 3).toString());
+        }
+    }//GEN-LAST:event_tblStudentsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -307,16 +320,14 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbCourse;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tblStudents;
     private javax.swing.JTextField txtFirstname;
     private javax.swing.JTextField txtLastname;
-    private javax.swing.JTextField txtStudent;
     // End of variables declaration//GEN-END:variables
 
 }

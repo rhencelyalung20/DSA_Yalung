@@ -38,36 +38,20 @@ public class Roleform extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnStudent.setBackground(new java.awt.Color(153, 255, 255));
         btnStudent.setFont(new java.awt.Font("Sitka Banner", 0, 36)); // NOI18N
         btnStudent.setText("STUDENT ");
         btnStudent.addActionListener(this::btnStudentActionPerformed);
+        jPanel2.add(btnStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 115, -1, 66));
 
+        btnAdmin.setBackground(new java.awt.Color(51, 0, 51));
         btnAdmin.setFont(new java.awt.Font("Sitka Banner", 0, 36)); // NOI18N
         btnAdmin.setText("ADMIN");
         btnAdmin.addActionListener(this::btnAdminActionPerformed);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(btnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                .addComponent(btnStudent)
-                .addGap(98, 98, 98))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(115, 115, 115)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(179, Short.MAX_VALUE))
-        );
+        jPanel2.add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 115, 180, 66));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 360));
 

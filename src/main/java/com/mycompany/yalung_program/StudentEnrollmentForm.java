@@ -30,10 +30,8 @@ public class StudentEnrollmentForm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtStudent = new javax.swing.JTextField();
         txtFirstname = new javax.swing.JTextField();
         txtLastname = new javax.swing.JTextField();
         cmbCourse = new javax.swing.JComboBox<>();
@@ -46,32 +44,35 @@ public class StudentEnrollmentForm extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
-        jLabel2.setText("Student ID: ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 75, 27));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
-        jLabel3.setText("Student ID: ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 75, 27));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Course:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 75, 27));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Firstname:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 75, 27));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Historic", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Lastname:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 75, 27));
-        jPanel1.add(txtStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 190, 40));
+
+        txtFirstname.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.add(txtFirstname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 190, 40));
+
+        txtLastname.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.add(txtLastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 190, 40));
 
         cmbCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HM", "BSOA", "ACT", " " }));
         cmbCourse.addActionListener(this::cmbCourseActionPerformed);
         jPanel1.add(cmbCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, -1, -1));
 
-        btnBack.setText("Back");
+        btnBack.setText("<-- Back");
         btnBack.addActionListener(this::btnBackActionPerformed);
-        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, 130, 40));
+        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 130, 30));
 
+        btnSubmit.setBackground(new java.awt.Color(0, 102, 0));
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(this::btnSubmitActionPerformed);
         jPanel1.add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 130, 40));
@@ -82,12 +83,13 @@ public class StudentEnrollmentForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -98,13 +100,12 @@ public class StudentEnrollmentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCourseActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-       String id = txtStudent.getText().trim();
-    String firstName = txtFirstname.getText().trim();
+      String firstName = txtFirstname.getText().trim();
     String lastName = txtLastname.getText().trim();
     String course = cmbCourse.getSelectedItem().toString();
 
-    // Input validation
-    if (id.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+    // 1. Validation (Hindi na kasama ang Student ID sa check)
+    if (firstName.isEmpty() || lastName.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, 
             "Please complete all fields!", 
             "Enrollment Warning", 
@@ -112,26 +113,38 @@ public class StudentEnrollmentForm extends javax.swing.JFrame {
         return;
     }
 
+    // 2. Save to MS Access Database (3 fields na lang)
     try {
         java.sql.Connection conn = DBConnection.connect();
-        String sql = "INSERT INTO Students (Student_ID, First_Name, Last_Name, Course) VALUES (?, ?, ?, ?)";
+        
+        // AutoNumber na ang Student_ID kaya hindi na kasama sa INSERT query
+        String sql = "INSERT INTO Students (First_Name, Last_Name, Course) VALUES (?, ?, ?)";
         java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-        pst.setString(1, id);
-        pst.setString(2, firstName);
-        pst.setString(3, lastName);
-        pst.setString(4, course);
+        
+        pst.setString(1, firstName);
+        pst.setString(2, lastName);
+        pst.setString(3, course);
 
         pst.executeUpdate();
-        javax.swing.JOptionPane.showMessageDialog(this, "Enrollment Submitted Successfully!", "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Enrollment Submitted Successfully!", 
+            "Success", 
+            javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
-        // Clear inputs
-        txtStudent.setText("");
+        // Clear input fields
         txtFirstname.setText("");
         txtLastname.setText("");
         cmbCourse.setSelectedIndex(0);
+        
+        // Clear din ang txtStudent kung hindi mo pa tinatanggal sa UI
+         
+        
         conn.close();
     } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Database Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Error: " + e.getMessage(), 
+            "Database Error", 
+            javax.swing.JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -171,12 +184,10 @@ public class StudentEnrollmentForm extends javax.swing.JFrame {
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbCourse;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtFirstname;
     private javax.swing.JTextField txtLastname;
-    private javax.swing.JTextField txtStudent;
     // End of variables declaration//GEN-END:variables
 }
